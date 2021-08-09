@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="attend1.css">
+    <title>Attendence</title>
+    <script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    
+</head>
+<body>
+    <div style="width: 100%;
+    height: 300vh;
+    background-color: #FDD2BF;" id="invoice">
+        <table class="content-table">
+            <thead>
+            
+                <th>Name</th>
+                <th>ID</th>
+                <th>Status</th>
+                
+            
+            </thead>
+            <tbody id="tbody1">
+               
+            </tbody>
+            
+        </table>
+        <div class="containerDate">
+            <input type="date">
+           
+        
+        </div>
+        <div class="containerText">
+            
+            <input type = "text">
+        
+        </div>
+        <div class="container">
+           
+        <button onclick="genaratePdf()" id="button">Submit</button>
+        </div>
+    </div>
+    
+   <script>
+       function genaratePdf(){
+           const element = document.getElementById('invoice');
+
+           html2pdf()
+           .from(element)
+           .save();
+       }
+
+    
+   </script>
+   <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
+   
+   <script>
+        var firebaseConfig = {
+    apiKey: "AIzaSyCyWJXHAtvlkoVJG7MAo96FFUocfSno21Y",
+    authDomain: "attendance-system-d209c.firebaseapp.com",
+    databaseURL: "https://attendance-system-d209c-default-rtdb.firebaseio.com",
+    projectId: "attendance-system-d209c",
+    storageBucket: "attendance-system-d209c.appspot.com",
+    messagingSenderId: "44493462683",
+    appId: "1:44493462683:web:6d77964864ef2f92363a3e"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  function alldata(){
+    firebase.database().ref('student').once('value',function(snapshot){
+            snapshot.forEach(function(snapshot){
+                
+                var student_name = snapshot.val().FullName;
+                var student_id = snapshot.val().IDNumber;
+                addtable(student_name, student_id);
+               
+            });
+          
+            
+        });
+    }
+    window.onload = alldata();
+
+        function addtable(student_name, student_id){
+                var tbody = document.getElementById('tbody1');
+                var trow = document.createElement('tr');
+                var td1 = document.createElement('td');
+                var td2 = document.createElement('td');
+                var td3 = document.createElement('td');
+                
+                
+             
+
+                td1.innerHTML = student_name;
+                td2.innerHTML = student_id;
+
+                var val = '1';
+                var cap = 'Jan';
+
+                var cb = document.createElement('input');
+                cb.type = 'checkbox';
+                td3.appendChild(cb);
+                cb.name = val;
+                cb.value = cap;
+                cb.appendChild(document.createTextNode('P/A'));
+                var label = document.createElement('label')
+                label.htmlFor = "id";
+                label.appendChild(document.createTextNode('P/A'));
+                td3.appendChild(label);
+
+
+                trow.appendChild(td1);trow.appendChild(td2);trow.appendChild(td3);
+                tbody.appendChild(trow);
+        }
+   </script>
+</body>
+</html>

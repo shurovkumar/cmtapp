@@ -1,0 +1,57 @@
+.content-table{
+    text-align: center;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1em;
+    font-family: sans-serif;
+    min-width: 600px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    
+}
+.content-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: center;
+    font-weight: bold;
+    
+  }
+  .containerDate{
+    width:100%;
+    display: flex;
+    justify-content: center;  
+    align-items: center; 
+    margin-top: 15px;
+   
+  }
+  .containerText{
+    width:100%;
+    display: flex;
+    justify-content: center;  
+    align-items: center; 
+    margin-top: 15px;
+    
+   
+  }
+  .container{
+      width: 100%;
+      display: flex;  
+    justify-content: center;  
+    align-items: center;  
+  }
+ #button{
+     border-radius: 5px;
+     background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    margin-top: 15px;
+    font-size: 16px;
+    
+ }

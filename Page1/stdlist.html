@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMT STUDENT DATA</title>
+    <link rel="stylesheet" type="text/css" href="stdlist.css">
+</head>
+    
+<body>
+    <h2 style="color: #fa6f32;">CMT STUDENTS DETAILS</h2>
+<section>
+    <div class="leftside">
+    <form>
+        <div>
+            <label for="fullName">Full Name</label>
+            <input id="fullname" name="fullname" type="text" placeholder="Enter your name: ">
+        </div>
+        <div>
+            <label for="studentid">Student ID</label>
+            <input id="studentid" name="studentid" type="text" placeholder="Enter your ID:">
+        </div>
+        <div>
+            <label for="stdnumber">Student Number</label>
+            <input id="stdnumber" name="stdnumber" type="text" placeholder="Enter your number:">
+        </div>
+         <div>
+            <label for="stdmail">E-Mail</label>
+            <input id="stdmail" name="stdmail" type="text" placeholder="Enter your mail:">
+         </div>
+         <div>
+            <label for="gnumber">G-Number</label>
+            <input id="gnumber" name="gnumber" type="text" placeholder="Enter your f/m number:">
+         </div>
+         <div>
+            <label for="result">CGPA</label>
+            <input id="cgpa" name="result" type="text" placeholder="Enter CGPA:">
+         </div>
+    </form>
+        <button id="insart" type="button">Submit</button>
+        <button id="select" type="button">Select</button>
+        <button id="update" type="button">Update</button>
+        <button id="delete" type="button">Delete</button>
+        <button id="reset" type="button">Reset</button>
+    </div>
+     
+        
+    <div class="rightside">
+        <table class="list">
+            
+            <thead class="thead">
+                <th>Count</th>
+                <th>Student Name</th>
+                <th>Student ID</th>
+                <th>Student Number</th>
+                <th>E-Mail</th>
+                <th>G-Number</th>
+            </thead>
+            <tbody id="tbody2">
+
+            </tbody>
+        </table>
+    </div>
+
+</section>
+     
+   
+<script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
+
+<script id="MainScript">
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+    apiKey: "AIzaSyCyWJXHAtvlkoVJG7MAo96FFUocfSno21Y",
+    authDomain: "attendance-system-d209c.firebaseapp.com",
+    databaseURL: "https://attendance-system-d209c-default-rtdb.firebaseio.com",
+    projectId: "attendance-system-d209c",
+    storageBucket: "attendance-system-d209c.appspot.com",
+    messagingSenderId: "44493462683",
+    appId: "1:44493462683:web:6d77964864ef2f92363a3e"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+    //---------------Ready data------------//
+
+    var fname,idnum,snumber,smail,fmnumber,fresult;
+    function Ready(){
+    fname = document.getElementById('fullname').value;
+    idnum = document.getElementById('studentid').value;
+    snumber = document.getElementById('stdnumber').value;
+    smail = document.getElementById('stdmail').value;
+    fmnumber = document.getElementById('gnumber').value;
+    fresult = document.getElementById('cgpa').value;
+}
+//-------------Insart Process---------//
+
+    document.getElementById('insart').onclick = function(){
+        Ready();
+        firebase.database().ref('student/'+idnum).set({
+            FullName: fname,
+            IDNumber: idnum,
+            StdNumber: snumber,
+            StdMail: smail,
+            Gnumber: fmnumber,
+            CGPA: fresult
+        });
+        
+    }
+//------------Select process---------//
+    document.getElementById('select').onclick = function(){
+        Ready();
+        firebase.database().ref('student/'+idnum).once('value',function(snapshot){
+            document.getElementById('fullname').value = snapshot.val().FullName;
+            document.getElementById('stdnumber').value = snapshot.val().StdNumber;
+            document.getElementById('stdmail').value = snapshot.val().StdMail;
+            document.getElementById('gnumber').value = snapshot.val().Gnumber;
+            document.getElementById('cgpa').value = snapshot.val().CGPA;
+        });
+    }
+//---------------Update Process----------//
+    document.getElementById('update').onclick = function(){
+            Ready();
+            firebase.database().ref('student/'+idnum).update({
+                FullName: fname,
+                StdNumber: snumber,
+                StdMail: smail,
+                Gnumber: fmnumber,
+                CGPA: fresult
+            });
+        } 
+//---------------Delete Process-----------//
+    document.getElementById('delete').onclick = function(){
+            Ready();
+            firebase.database().ref('student/'+idnum).remove();
+        }
+//----------------Reset Process--------//
+        document.getElementById('reset').onclick = function(){
+            Ready();
+            location.reload();
+        }
+
+//-----------------get All Data------------//
+        function SelectAllData(){
+            firebase.database().ref('student').once('value', 
+            function(AllRecords){
+                AllRecords.forEach(
+                    function(CurrentRecord){
+                        var name = CurrentRecord.val().FullName;
+                        var ID = CurrentRecord.val().IDNumber;
+                        var contact = CurrentRecord.val().StdNumber;
+                        var Gmail = CurrentRecord.val().StdMail;
+                        var Gardian = CurrentRecord.val().Gnumber;
+                        AddItemsToTable(name,ID,contact,Gmail,Gardian);
+                    }
+                );
+
+            });
+        }
+        window.onload = SelectAllData();
+//--------------------Filling table------------------//
+        var stdNo = 0;
+    function AddItemsToTable(name,ID,contact,Gmail,Gardian){
+        var tbody = document.getElementById('tbody2');
+        var trow = document.createElement('tr');
+        var td1 = document.createElement('td');
+        var td2 = document.createElement('td');
+        var td3 = document.createElement('td');
+        var td4 = document.createElement('td');
+        var td5 = document.createElement('td');
+        var td6 = document.createElement('td');
+
+        td1.innerHTML = ++stdNo;
+        td2.innerHTML = name;
+        td3.innerHTML = ID;
+        td4.innerHTML = contact;
+        td5.innerHTML = Gmail;
+        td6.innerHTML = Gardian;
+
+        trow.appendChild(td1);trow.appendChild(td2);trow.appendChild(td3);trow.appendChild(td4);trow.appendChild(td5);trow.appendChild(td6);
+        tbody.appendChild(trow);
+    }
+  </script>
+</body>
+</html>

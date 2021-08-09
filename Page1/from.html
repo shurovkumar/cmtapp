@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login Section</title>
+    <link rel="stylesheet" type="text/css" href="fromstyle.css">
+    <script>
+        document.addEventListener("contextmenu",function(disabaleIt){
+            disabaleIt.preventDefault();
+        });
+        function cheakPassword() {
+            var password = document.getElementById("passwordbox");
+            var user = document.getElementById("userbox");
+            var userName = user.value;
+            var passwordText = password.value;
+            if(userName == "Shurov Kumar"){
+                return true;
+            }
+            else{
+                alert("invalid username and password");
+                return false;
+            }
+            if(passwordText == "kumarshurov"){
+                return true;
+            }
+            else{
+                alert("Access Denied");
+                return false;
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="loginbox">
+    <img src="pic3.png" class="avater">
+        <h1>Login Hare</h1>
+        <from>
+        <p>Username</p>
+        <input id="userbox" type="text" name="" placeholder="Enter Username">
+        <p>Password</p>
+        <input id="passwordbox" type="password" name="" placeholder="Enter Password">
+        <a href="stdlist.html" onclick="return cheakPassword();"><input type="submit" name="" value="login"></a>
+        <p>
+            <font size="1" face="arial" color="#C0C0C0">
+            All Right Reasarved By S Creation
+            </font></p>
+        </from>
+        
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="result.css">
+    <title>Student Result</title>
+</head>
+<body>
+    <h2>RESULT</h2>
+    <div class = "container">
+        
+    <div class ="input1">
+        <input type="text" id="stdidnum" placeholder="Enter student ID">
+    </div>
+    <div class="input2">
+
+        <button id="submit" type="button">Submit</button>
+    </div>
+    <div class = "input3">
+        <input type="text" id="stdname" placeholder="NAME">
+        <input type="text" id="result" placeholder="CGPA">
+    </div>
+    </div>
+
+<script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
+<script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyCyWJXHAtvlkoVJG7MAo96FFUocfSno21Y",
+      authDomain: "attendance-system-d209c.firebaseapp.com",
+      databaseURL: "https://attendance-system-d209c-default-rtdb.firebaseio.com/",
+      projectId: "attendance-system-d209c",
+      storageBucket: "attendance-system-d209c.appspot.com",
+      messagingSenderId: "44493462683",
+      appId: "1:44493462683:web:96ec5f0f55327176363a3e"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+//----------Get Data------------//
+var idnum;
+    function Ready(){
+        idnum = document.getElementById('stdidnum').value;
+    }
+
+    document.getElementById('submit').onclick = function(){
+        Ready();
+        firebase.database().ref('student/'+idnum).on('value',function(snapshot){
+            
+            document.getElementById('stdname').value = snapshot.val().FullName;
+            document.getElementById('result').value = snapshot.val().CGPA;
+        });
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+body{
+    background-color: bisque;
+}
+h2{
+   font-family: sans-serif;
+   text-align: center;
+   margin-top: 100px;
+}
+.container{
+    width: 50%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    background-color: chocolate;
+    border-radius: 20px;
+}
+section{
+    display: flex;
+}
+
+input[type="text"]{
+    width: 80%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    
+}
+button[id="submit"]{
+    background: #EAE7DC;
+    padding: 6px 12px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 30px;
+    border: none;
+    margin: 15px 0 10px;
+    outline: none;
+}
